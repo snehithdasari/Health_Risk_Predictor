@@ -1,6 +1,6 @@
 # VitalRisk Insight - Health Risk Predictor
 
-![Health Risk Predictor Logo](screenshots/home.png)
+![Health Risk Predictor Logo](screenshots/form.png.png)
 
 A comprehensive, full-stack predictive web application that leverages advanced Machine Learning algorithms (Random Forest, XGBoost, Support Vector Machine) to evaluate a user's risk for **Diabetes**, **Hypertension**, and **Heart Disease** based on clinical and lifestyle factors.
 
@@ -15,10 +15,17 @@ A comprehensive, full-stack predictive web application that leverages advanced M
 ## 📸 Screenshots
 
 ### The Health Assessment Form
-![Assessment Form](screenshots/form.png)
+![Assessment Form](screenshots/form.png.png)
 
 ### Results & Risk Breakdown
-![Results Dashboard](screenshots/results.png)
+![Results Dashboard](screenshots/results.png.png)
+
+### Authentication
+![Login Page](screenshots/login.png.png)
+![Signup Page](screenshots/signup.png.png)
+
+### About the Models
+![About Page](screenshots/about.png.png)
 
 ## 🛠️ Technology Stack
 
