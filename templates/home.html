@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    
+    <!-- Hero Section -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Health Risk Predictor</h1>
+        <p class="text-lg text-slate-500">Assess your risk for diabetes, hypertension, and heart disease using advanced machine learning models.</p>
+    </div>
+
+    <!-- Disease Information Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <!-- Heart Disease -->
+        <div class="bg-blue-50/50 border border-blue-100 rounded-xl p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+            <div class="flex items-center gap-3 text-blue-600 mb-3">
+                <i class="fa-solid fa-heart-pulse text-xl"></i>
+                <h3 class="font-bold text-xl">Heart Disease</h3>
+            </div>
+            <p class="text-slate-600 text-sm">Predict your risk of developing cardiovascular conditions based on clinical data.</p>
+        </div>
+        
+        <!-- Diabetes -->
+        <div class="bg-purple-50/50 border border-purple-100 rounded-xl p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+            <div class="flex items-center gap-3 text-purple-600 mb-3">
+                <i class="fa-solid fa-wave-square text-xl"></i>
+                <h3 class="font-bold text-xl">Diabetes</h3>
+            </div>
+            <p class="text-slate-600 text-sm">Assess your likelihood of developing diabetes based on health factors and lifestyle.</p>
+        </div>
+        
+        <!-- Hypertension -->
+        <div class="bg-orange-50/50 border border-orange-100 rounded-xl p-6 transition-transform hover:-translate-y-1 hover:shadow-md">
+            <div class="flex items-center gap-3 text-orange-600 mb-3">
+                <i class="fa-solid fa-circle-exclamation text-xl"></i>
+                <h3 class="font-bold text-xl">Hypertension</h3>
+            </div>
+            <p class="text-slate-600 text-sm">Evaluate your risk of high blood pressure conditions and their potential impact.</p>
+        </div>
+    </div>
+
+    <!-- Health Assessment Form -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold text-center text-slate-800 mb-8">Health Assessment Form</h2>
+        
+        <form action="{{ url_for('predict') }}" method="POST" class="space-y-6 form-grid">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Age -->
+                <div class="form-group">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" id="age" name="age" required min="18" max="100" class="form-input" placeholder="e.g. 45">
+                </div>
+                
+                <!-- Gender -->
+                <div class="form-group">
+                    <label for="gender" class="form-label">Gender</label>
+                    <div class="relative">
+                        <select id="gender" name="gender" required class="form-input appearance-none">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BMI Slider -->
+                <div class="form-group">
+                    <label for="bmi" class="form-label flex justify-between">
+                        <span>BMI: <span id="bmi-value" class="font-bold text-indigo-600">25</span></span>
+                    </label>
+                    <div class="pt-2">
+                        <input type="range" id="bmi" name="bmi" min="15" max="50" value="25" step="0.1" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-400 mt-2">
+                        <span>Underweight</span>
+                        <span>Normal</span>
+                        <span>Overweight</span>
+                        <span>Obese</span>
+                    </div>
+                </div>
+
+                <!-- Blood Pressure (Systolic) -->
+                <div class="form-group">
+                    <label for="blood_pressure_systolic" class="form-label">Blood Pressure (Systolic)</label>
+                    <input type="number" id="blood_pressure_systolic" name="blood_pressure_systolic" required min="80" max="250" class="form-input" placeholder="e.g. 120">
+                </div>
+
+                <!-- Blood Pressure (Diastolic) -->
+                <div class="form-group">
+                    <label for="blood_pressure_diastolic" class="form-label">Blood Pressure (Diastolic)</label>
+                    <input type="number" id="blood_pressure_diastolic" name="blood_pressure_diastolic" required min="40" max="150" class="form-input" placeholder="e.g. 80">
+                </div>
+
+                <!-- Cholesterol -->
+                <div class="form-group">
+                    <label for="cholesterol" class="form-label">Cholesterol Level (mg/dL)</label>
+                    <input type="number" id="cholesterol" name="cholesterol" required min="100" max="400" class="form-input" placeholder="e.g. 200">
+                </div>
+                
+                <!-- Glucose -->
+                <div class="form-group">
+                    <label for="glucose" class="form-label">Glucose Level (mg/dL)</label>
+                    <input type="number" id="glucose" name="glucose" required min="50" max="400" class="form-input" placeholder="e.g. 100">
+                </div>
+
+                <!-- Smoking -->
+                <div class="form-group">
+                    <label for="smoking" class="form-label">Smoking Status</label>
+                    <div class="relative">
+                        <select id="smoking" name="smoking" required class="form-input appearance-none">
+                            <option value="Non-smoker">Non-smoker</option>
+                            <option value="Former smoker">Former smoker</option>
+                            <option value="Current smoker">Current smoker</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alcohol -->
+                <div class="form-group">
+                    <label for="alcohol" class="form-label">Alcohol Consumption</label>
+                    <div class="relative">
+                        <select id="alcohol" name="alcohol" required class="form-input appearance-none">
+                            <option value="None">None</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Heavy">Heavy</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Physical Activity -->
+                <div class="form-group">
+                    <label for="physical_activity" class="form-label">Physical Activity</label>
+                    <div class="relative">
+                        <select id="physical_activity" name="physical_activity" required class="form-input appearance-none">
+                            <option value="Low">Low</option>
+                            <option value="Moderate" selected>Moderate</option>
+                            <option value="High">High</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Family History -->
+                <div class="form-group">
+                    <label for="family_history" class="form-label">Family History of Conditions</label>
+                    <div class="relative">
+                        <select id="family_history" name="family_history" required class="form-input appearance-none">
+                            <option value="None">None</option>
+                            <option value="Diabetes">Diabetes</option>
+                            <option value="Heart Disease">Heart Disease</option>
+                            <option value="Hypertension">Hypertension</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 flex justify-center">
+                <button type="submit" class="btn-primary px-8 py-3 rounded-lg font-semibold text-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                    Predict Health Risks
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Update BMI display
+    const bmiSlider = document.getElementById('bmi');
+    const bmiValue = document.getElementById('bmi-value');
+    
+    bmiSlider.addEventListener('input', function() {
+        bmiValue.textContent = this.value;
+    });
+</script>
+{% endblock %}

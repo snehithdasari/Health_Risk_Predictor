@@ -1,0 +1,71 @@
+/* Custom Tailwind-like Utilities & Specific Components */
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    
+    --purple: #8b5cf6;
+    --orange: #f97316;
+    --blue: #3b82f6;
+    
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    
+    --bg-light: #f8fafc;
+    --border-color: #e2e8f0;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base Form Inputs */
+.form-group {
+    @apply flex flex-col gap-2 relative;
+}
+
+.form-label {
+    @apply text-sm font-semibold text-slate-800;
+}
+
+.form-input {
+    @apply bg-white border border-slate-200 text-slate-800 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 transition-colors outline-none shadow-sm;
+}
+.form-input:hover {
+    @apply border-slate-300;
+}
+
+/* Buttons */
+.btn-primary {
+    @apply bg-indigo-600 text-white hover:bg-indigo-700 text-center transition-colors;
+}
+
+.btn-outline {
+    @apply border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-panel {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Hide scrollbar for print */
+@media print {
+    .btn-primary, .btn-outline, header, footer {
+        display: none !important;
+    }
+    body {
+        background: white;
+    }
+    .shadow-sm, .shadow {
+        box-shadow: none !important;
+        border: 1px solid #ddd;
+    }
+}

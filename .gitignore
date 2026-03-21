@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+venv/
+env/
+.env
+.venv
+*.sqlite3
+health_risk.db
+.DS_Store
+ml_models/scaler.pkl
+ml_models/*.pkl
