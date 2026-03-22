@@ -1,8 +1,8 @@
 # VitalRisk Insight - Health Risk Predictor
 
-![Health Risk Predictor Logo](screenshots/form.png.png)
+![Health Risk Predictor Logo](screenshots/form.png)
 
-A comprehensive, full-stack predictive web application that leverages advanced Machine Learning algorithms (Random Forest, XGBoost, Support Vector Machine) to evaluate a user's risk for **Diabetes**, **Hypertension**, and **Heart Disease** based on clinical and lifestyle factors.
+A comprehensive, full-stack predictive web application that leverages advanced Machine Learning algorithms (Random Forest, Gradient Boosting, Support Vector Machine) to evaluate a user's risk for **Diabetes**, **Hypertension**, and **Heart Disease** based on clinical and lifestyle factors.
 
 ## 🚀 Features
 
@@ -15,22 +15,22 @@ A comprehensive, full-stack predictive web application that leverages advanced M
 ## 📸 Screenshots
 
 ### The Health Assessment Form
-![Assessment Form](screenshots/form.png.png)
+![Assessment Form](screenshots/form.png)
 
 ### Results & Risk Breakdown
-![Results Dashboard](screenshots/results.png.png)
+![Results Dashboard](screenshots/results.png)
 
 ### Authentication
-![Login Page](screenshots/login.png.png)
-![Signup Page](screenshots/signup.png.png)
+![Login Page](screenshots/login.png)
+![Signup Page](screenshots/signup.png)
 
 ### About the Models
-![About Page](screenshots/about.png.png)
+![About Page](screenshots/about.png)
 
 ## 🛠️ Technology Stack
 
 - **Backend**: Python, Flask, Flask-SQLAlchemy, Flask-Login
-- **Machine Learning**: Scikit-Learn, XGBoost, Pandas, Numpy
+- **Machine Learning**: Scikit-Learn, Gradient Boosting, Pandas, Numpy
 - **Frontend**: HTML5, CSS3, Jinja2, Chart.js
 
 ## 📦 Installation & Setup

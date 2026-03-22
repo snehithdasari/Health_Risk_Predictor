@@ -55,8 +55,8 @@ function initCharts() {
     const getPlotData = (diseaseKey) => {
         const d = resultData[diseaseKey] || {};
         return {
-            labels: ['XGBoost', 'Random Forest', 'SVM'],
-            data: [d['XGBoost'] || 0, d['Random Forest'] || 0, d['SVM'] || 0]
+            labels: ['Gradient Boosting', 'Random Forest', 'SVM'],
+            data: [d['Gradient Boosting'] || 0, d['Random Forest'] || 0, d['SVM'] || 0]
         };
     };
 

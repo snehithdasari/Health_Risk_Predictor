@@ -41,7 +41,7 @@ def load_models():
             print("Loaded feature scaler.")
 
         diseases = ['diabetes', 'hypertension', 'heart_disease']
-        model_types = ['rf', 'xgb', 'svm']
+        model_types = ['rf', 'gbm', 'svm']
 
         for d in diseases:
             models[d] = {}
@@ -183,10 +183,10 @@ def predict():
                 rf_prob = models[d]['rf'].predict_proba(df_input)[0][1]
                 disease_results['Random Forest'] = round(float(rf_prob) * 100, 1)
 
-            # XGBoost
-            if 'xgb' in models[d]:
-                xgb_prob = models[d]['xgb'].predict_proba(df_input)[0][1]
-                disease_results['XGBoost'] = round(float(xgb_prob) * 100, 1)
+            # Gradient Boosting
+            if 'gbm' in models[d]:
+                gbm_prob = models[d]['gbm'].predict_proba(df_input)[0][1]
+                disease_results['Gradient Boosting'] = round(float(gbm_prob) * 100, 1)
 
             # SVM
             if 'svm' in models[d]:

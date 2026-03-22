@@ -7,12 +7,11 @@ for Diabetes, Hypertension, and Heart Disease prediction.
 import os
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.svm import SVC
-from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
 import joblib
 
 # Ensure ml_models directory exists
@@ -121,25 +120,28 @@ def train_and_save_models(df):
         rf = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
         rf.fit(X_train, y_train)
         rf_acc = accuracy_score(y_test, rf.predict(X_test))
+        rf_roc = roc_auc_score(y_test, rf.predict_proba(X_test)[:, 1])
         joblib.dump(rf, f'ml_models/rf_{disease}.pkl')
-        print(f"  Random Forest Accuracy: {rf_acc:.4f}")
+        print(f"  Random Forest Accuracy: {rf_acc:.4f} | ROC-AUC: {rf_roc:.4f}")
 
-        # XGBoost
-        xgb = XGBClassifier(
+        # Gradient Boosting
+        gbm = GradientBoostingClassifier(
             n_estimators=100, max_depth=6, learning_rate=0.1,
-            random_state=42, use_label_encoder=False, eval_metric='logloss'
+            random_state=42
         )
-        xgb.fit(X_train, y_train)
-        xgb_acc = accuracy_score(y_test, xgb.predict(X_test))
-        joblib.dump(xgb, f'ml_models/xgb_{disease}.pkl')
-        print(f"  XGBoost Accuracy:       {xgb_acc:.4f}")
+        gbm.fit(X_train, y_train)
+        gbm_acc = accuracy_score(y_test, gbm.predict(X_test))
+        gbm_roc = roc_auc_score(y_test, gbm.predict_proba(X_test)[:, 1])
+        joblib.dump(gbm, f'ml_models/gbm_{disease}.pkl')
+        print(f"  Gradient Boosting Acc:  {gbm_acc:.4f} | ROC-AUC: {gbm_roc:.4f}")
 
         # SVM (uses scaled features)
         svm = SVC(kernel='rbf', probability=True, random_state=42)
         svm.fit(X_train_scaled, y_train)
-        svm_acc = accuracy_score(y_test_scaled := y_test, svm.predict(X_test_scaled))
+        svm_acc = accuracy_score(y_test, svm.predict(X_test_scaled))
+        svm_roc = roc_auc_score(y_test, svm.predict_proba(X_test_scaled)[:, 1])
         joblib.dump(svm, f'ml_models/svm_{disease}.pkl')
-        print(f"  SVM Accuracy:           {svm_acc:.4f}")
+        print(f"  SVM Accuracy:           {svm_acc:.4f} | ROC-AUC: {svm_roc:.4f}")
 
     print(f"\n{'='*60}")
     print("All models trained and saved to ml_models/")
