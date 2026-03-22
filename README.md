@@ -2,6 +2,8 @@
 
 ![Health Risk Predictor Logo](screenshots/form.png)
 
+### 🚀 [Live Demo: health-risk-predictor-zeta.vercel.app](https://health-risk-predictor-zeta.vercel.app/)
+
 A comprehensive, full-stack predictive web application that leverages advanced Machine Learning algorithms (Random Forest, Gradient Boosting, Support Vector Machine) to evaluate a user's risk for **Diabetes**, **Hypertension**, and **Heart Disease** based on clinical and lifestyle factors.
 
 ## 🚀 Features
