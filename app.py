@@ -12,10 +12,18 @@ except ImportError:
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dev_secret_key_123'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///health_risk.db'
+import tempfile
+db_path = os.path.join(tempfile.gettempdir(), 'health_risk.db')
+# We must use /tmp for serverless environments as /var/task is read-only
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+
+# Important for Vercel: Serverless functions import app, they do not run __main__.
+# We must create tables at import-time if they don't exist in /tmp
+with app.app_context():
+    db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -222,8 +230,8 @@ def init_db():
         db.create_all()
 
 if __name__ == '__main__':
-    # Initialize DB (run once on startup)
-    if not os.path.exists('health_risk.db'):
+    # Initialized at module level for serverless, but kept here for local dev
+    if not os.path.exists(db_path):
         init_db()
         print("Initialized SQLite database.")
         
